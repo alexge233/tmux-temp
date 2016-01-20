@@ -14,7 +14,7 @@ Download the script in your `.tmux/` directory:
 
 ```
 mkdir .tmux/
-wget xxx ~/.tmux/temp.js
+wget https://raw.githubusercontent.com/alexge233/tmux-temp/master/temp.js ~/.tmux/temp.js
 ```
 
 Then configure your tmux to display it at the correct segment.
