@@ -17,7 +17,8 @@ mkdir .tmux/
 wget xxx ~/.tmux/temp.js
 ```
 
-And the configure your tmux to display it at the correct segment.
+Then configure your tmux to display it at the correct segment.
+
 I use [vim-airline](https://github.com/vim-airline/vim-airline) and
 [tmuxline](https://github.com/edkolev/tmuxline.vim), so setting it is done
 by doing:
@@ -39,7 +40,6 @@ let g:tmuxline_preset = {
 - finally, edit your `.tmux.conf` so that it loads your new theme:
 ```
 source "~/.tmux/theme"
-
 ```
 
 Feel free to hack into the script!
