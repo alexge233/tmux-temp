@@ -42,6 +42,8 @@ let g:tmuxline_preset = {
 source "~/.tmux/theme"
 ```
 
-Feel free to hack into the script!
-There's an option which normalises the temperature to an RGB colour code,
-but I can't get it to work with tmux.
+The status icon uses *unicode* codes to draw the box, thus make sure your terminal supports it.
+If you have a need to change the ranges (min temperature is set to 30 and max to 100) edit the
+script, same goes for switching from Celcius to Fahrenheit.
+
+I have not tested it under OSX, only linux.
