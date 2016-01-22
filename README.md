@@ -2,6 +2,8 @@
 
 A CPU temperature monitor for tmux.
 
+![tmux-temp](https://github.com/alexge233/tmux-temp/blob/master/tmux_status_temp.png?raw=true)
+
 ## Instructions
 
 This wee script assumes you have installed `lm-sensors` on your system,
