@@ -4,6 +4,7 @@
 /// @date January 2016
 ///
 var sp = require('child_process');
+var colors = require('tmux-colors');
 
 // this script assumes you already have installed and configures lm-sensors
 var sensors = sp.spawnSync("/usr/bin/sensors", ["--no-adapter", "coretemp-isa-0000"]);
@@ -51,7 +52,7 @@ var index = parseInt(eight);
 // rgb hex'ed
 var rgb = rgbToHex(r, g, b); 
 
-console.log('#[fg='+rgb+',bold]'+bars[index]+'°C');
+console.log(colors('#[fg='+rgb+',bold]'+bars[index]+'°C'));
 
 function componentToHex(c){
     var hex = c.toString(16);
