@@ -4,9 +4,7 @@
 /// @date January 2016
 ///
 var sp = require('child_process');
-
-// @see https://www.npmjs.com/package/tmux-colors
-var colors = require('tmux-colors');
+var colors = require('ansi-256-colors');
 
 // this script assumes you already have installed and configures lm-sensors
 var sensors = sp.spawnSync("/usr/bin/sensors", ["--no-adapter", "coretemp-isa-0000"]);
@@ -30,26 +28,31 @@ avg /= core_count;
 
 // change those to adjust your tmps
 var max = 100;
-var min = 25;
+var min = 30;
 
-// min max normalise
-var norm = (avg - min) / (max - min);
+// min max normalise temperature
+var norm = ((avg - min) / (max - min))*100;
 
-var txt = avg+'°C';
+// use the average temp / or use the max_temp
+var temp = avg;
 
-/*
-var r = parseInt((255 * norm*100) / 100);
-var g = parseInt((255 * (100 - norm*100)) / 100);
+// find RGB value
+var r = parseInt((255 * norm) / 100);
+var g = parseInt((255 * (100 - norm)) / 100);
 var b = parseInt(0);
-// convert it to hex
-var val = '#'+r.toString(16)+g.toString(16)+b.toString(16);
-*/
 
-if (avg < 40) val = 'blue';
-else if (avg > 40 && avg < 50) val = 'green';
-else if (avg > 50 && avg < 60) val = 'yellow';
-else if (avg > 60 && avg < 75) val = 'orange';
-else if (avg > 75 ) val = 'red';
+// round to nearest single digit
+var red = Number(String(r).charAt(0));
+var green = Number(String(g).charAt(0));
+var blue = Number(String(b).charAt(0));
 
-// output
-console.log(colors('#[fg='+val+',bold]'+txt));
+// 8ths (no empty box)
+var bars = ['\u2581','\u2582','\u2583','\u2584',
+            '\u2585','\u2586','\u2587','\u2588'];
+
+// re-scale the norm value to eights
+// NewValue = (((OldValue - OldMin) * (NewMax - NewMin)) / (OldMax - OldMin)) + NewMin
+var eight = (((temp - min) * (8 - 1)) / (max - min)) + 1;
+var index = parseInt(eight);
+
+console.log(colors.fg.getRgb(red,green,blue)+(bars[index]+'°C')+colors.reset);
