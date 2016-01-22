@@ -4,7 +4,6 @@
 /// @date January 2016
 ///
 var sp = require('child_process');
-var colors = require('ansi-256-colors');
 
 // this script assumes you already have installed and configures lm-sensors
 var sensors = sp.spawnSync("/usr/bin/sensors", ["--no-adapter", "coretemp-isa-0000"]);
@@ -41,18 +40,24 @@ var r = parseInt((255 * norm) / 100);
 var g = parseInt((255 * (100 - norm)) / 100);
 var b = parseInt(0);
 
-// round to nearest single digit
-var red = Number(String(r).charAt(0));
-var green = Number(String(g).charAt(0));
-var blue = Number(String(b).charAt(0));
-
 // 8ths (no empty box)
 var bars = ['\u2581','\u2582','\u2583','\u2584',
             '\u2585','\u2586','\u2587','\u2588'];
 
 // re-scale the norm value to eights
-// NewValue = (((OldValue - OldMin) * (NewMax - NewMin)) / (OldMax - OldMin)) + NewMin
 var eight = (((temp - min) * (8 - 1)) / (max - min)) + 1;
 var index = parseInt(eight);
 
-console.log(colors.fg.getRgb(red,green,blue)+(bars[index]+'°C')+colors.reset);
+// rgb hex'ed
+var rgb = rgbToHex(r, g, b); 
+
+console.log('#[fg='+rgb+',bold]'+bars[index]+'°C');
+
+function componentToHex(c){
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
+}
+
+function rgbToHex(r, g, b) {
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
