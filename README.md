@@ -44,7 +44,7 @@ let g:tmuxline_preset = {
 source "~/.tmux/theme"
 ```
 
-The status icon uses *unicode* codes to draw the box, thus make sure your terminal supports it.
+The status icon uses *unicode* codes to draw the box, thus make sure your terminal supports them.
 If you have a need to change the ranges (min temperature is set to 30 and max to 100) edit the
 script, same goes for switching from Celcius to Fahrenheit.
 
