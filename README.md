@@ -33,7 +33,7 @@ let g:tmuxline_preset = {
       \'c'    : '',
       \'win'  : '#W #I',
       \'cwin' : '#W #I',
-      \'x'    : '⇑ #R',
+      \'x'    : '⇑ %R',
       \'y'    : '#(node .tmux/temp.js)',
       \'z'    : '#H'}
 ```
